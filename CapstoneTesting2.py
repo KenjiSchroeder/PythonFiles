@@ -14,8 +14,10 @@ X = drug_consumption_quantified.data.features
 y = drug_consumption_quantified.data.targets 
 DrugData = drug_consumption_quantified.data.original
 
-target_names 
+target_names = 
+
 feature_names =
+
 #filter out fraud (semeron positive)
 FilterSemer = DrugData["semer"]
 Listtofilter = []
@@ -37,15 +39,6 @@ print(cleanData)
 
 
 
-plt.figure(figsize=(6, 4)) 
-for i in range(len(target_names)):
-   plt.scatter(X[y == i, 0], X[y == i, 1], label=target_names[i])
-plt.xlabel(feature_names[0])
-plt.ylabel(feature_names[1])
-plt.title("Drug dataset: First two features")
-plt.legend()
-plt.tight_layout()
-plt.show() 
-plt.savefig("First2 features dataset")
+
 
 #C:\Users\ICSSA-student\AppData\Local\Microsoft\WindowsApps\python3.13.exe C:/Users/ICSSA-student/Downloads/PythonFiles/CapstoneTesting2.py

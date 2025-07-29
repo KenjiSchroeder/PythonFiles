@@ -42,7 +42,7 @@ print(cleanData)
 
 columns = drug_consumption_quantified.data.ids
 
-df = cleanData
+cleanData = pd.DataFrame(cleanData)
 
 '''encoders = {}
 for col in df.columns:
@@ -51,8 +51,10 @@ for col in df.columns:
    encoders[col] = le'''
 
 X3 = cleanData.iloc[:,range(0,13)]
-y3 = cleanData.iloc[:,range(13,32)]
+y3 = cleanData.iloc[:,range(13,31)]
 y3 = y3.squeeze() #this is just to make the y values into a one-dimensional list.
+print("break")
+print(type(y3))
 X3_train, X3_test, y3_train, y3_test = train_test_split(X3, y3, test_size=0.2, random_state=1)
 clf = DecisionTreeClassifier(criterion='entropy', random_state=1,)
 clf.fit(X3_train, y3_train)
