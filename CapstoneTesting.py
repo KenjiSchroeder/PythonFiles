@@ -48,3 +48,5 @@ print(y3)
 
 X3 = drug_consumption_quantified.data.features
 print(X3)
+test = range(0,13)
+print(test)

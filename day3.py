@@ -115,9 +115,16 @@ zoo = fetch_ucirepo(id=111)
 
 X3 = zoo.data.features
 y3 = zoo.data.targets
+print("aoidhfbsdkfb")
+print(y3)
 y3 = y3.squeeze() #this is just to make the y values into a one-dimensional list.
+print("blsdaojlsakd")
+print(y3)
 X3_train, X3_test, y3_train, y3_test = train_test_split(X3, y3, test_size=0.2, random_state=1)
 clf = DecisionTreeClassifier(criterion='entropy', random_state=1,)
+print("ZOOOOO BREAK")
+print(X3_train)
+print(y3_train)
 clf.fit(X3_train, y3_train)
 y3_pred = clf.predict(X3_test)
 print("Accuracy:", accuracy_score(y3_test, y3_pred))

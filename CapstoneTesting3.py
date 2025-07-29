@@ -51,12 +51,25 @@ for col in df.columns:
    encoders[col] = le'''
 
 X3 = cleanData.iloc[:,range(0,13)]
-y3 = cleanData.iloc[:,range(13,31)]
+y3 = cleanData.iloc[:,23]
+print("break0")
+print(y3)
 y3 = y3.squeeze() #this is just to make the y values into a one-dimensional list.
 print("break")
+print(y3)
 print(type(y3))
 X3_train, X3_test, y3_train, y3_test = train_test_split(X3, y3, test_size=0.2, random_state=1)
+print("break2")
+print(X3)
+print(y3)
+print("break3")
+y3test = drug_consumption_quantified.data.targets
+print(y3test)
+X3test = drug_consumption_quantified.data.features
+print(X3test)
 clf = DecisionTreeClassifier(criterion='entropy', random_state=1,)
+print(X3_train)
+print(y3_train)
 clf.fit(X3_train, y3_train)
 y3_pred = clf.predict(X3_test)
 print("Accuracy:", accuracy_score(y3_test, y3_pred))
