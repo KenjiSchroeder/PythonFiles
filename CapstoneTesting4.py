@@ -1,11 +1,11 @@
-from ucimlrepo import fetch_ucirepo 
-from sklearn import datasets
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
 import pandas as pd
 import numpy as np
-import itertools
 import matplotlib.pyplot as plt
-import re
-
+from sklearn.metrics import accuracy_score, f1_score
+from sklearn.neighbors import KNeighborsClassifier
+from ucimlrepo import fetch_ucirepo
 
 # fetch dataset 
 drug_consumption_quantified = fetch_ucirepo(id=373) 
@@ -44,12 +44,23 @@ cleanData = cleanData.replace('CL4',4)
 cleanData = cleanData.replace('CL5',5)
 cleanData = cleanData.replace('CL6',6)
 print(cleanData)
-#End cleanData
-print("break")
-y3 = drug_consumption_quantified.data.targets
-print(y3)
 
-X3 = drug_consumption_quantified.data.features
-print(X3)
-test = range(0,13)
-print(test)
+def findS(con, tar):
+   for i, val in enumerate(tar):
+       if val == 'Yes':
+           specific_h = con[i].copy()
+           break
+          
+   for i, val in enumerate(con):
+       if tar[i] == 'Yes':
+           for x in range(len(specific_h)):
+               if val[x] != specific_h[x]:
+                   specific_h[x] = '?'
+               else:
+                   pass
+   return specific_h
+# from https://github.com/kevinadhiguna/find-S-algorithm/blob/master/find-s.ipynb
+
+concepts = cleanData.iloc[:,[0,1,2,3,4,5,6,7,8,9,10,11,12]]
+target = cleanData.iloc[:,23]
+print(findS(concepts,target))

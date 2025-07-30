@@ -114,12 +114,14 @@ zoo = fetch_ucirepo(id=111)
 
 
 X3 = zoo.data.features
+
 y3 = zoo.data.targets
 print("aoidhfbsdkfb")
 print(y3)
 y3 = y3.squeeze() #this is just to make the y values into a one-dimensional list.
 print("blsdaojlsakd")
 print(y3)
+print(X3)
 X3_train, X3_test, y3_train, y3_test = train_test_split(X3, y3, test_size=0.2, random_state=1)
 clf = DecisionTreeClassifier(criterion='entropy', random_state=1,)
 print("ZOOOOO BREAK")
@@ -186,21 +188,18 @@ plt.show()
 #Yes, 100%
 
 
-iris = load_iris()
-X5 = iris.data
-y5 = iris.target
 
 
-X5_train, X5_test, y5_train, y5_test = train_test_split(X5, y5, test_size=0.2, random_state=1)
+
 
 clf = RandomForestClassifier(n_estimators=100, random_state=1)
-clf.fit(X5_train, y5_train)
+clf.fit(X3_train, y3_train)
 
 
 
 
-y5_pred = clf.predict(X5_test)
-print("RF Accuracy:", accuracy_score(y5_test, y5_pred))
+y3_pred = clf.predict(X3_test)
+print("RF Accuracy:", accuracy_score(y3_test, y3_pred))
 
 importances = clf.feature_importances_
 features = iris.feature_names
@@ -209,7 +208,7 @@ plt.figure(figsize=(8, 5))
 plt.barh(range(len(importances)), importances, align='center')
 plt.yticks(range(len(importances)), features)
 plt.xlabel("Feature Importance")
-plt.title("Random Forest - Iris Feature Importances")
+plt.title("Random Forest - Drug Feature Importances")
 plt.tight_layout()
 plt.show()
 
