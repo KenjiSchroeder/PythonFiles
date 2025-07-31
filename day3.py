@@ -208,7 +208,7 @@ plt.figure(figsize=(8, 5))
 plt.barh(range(len(importances)), importances, align='center')
 plt.yticks(range(len(importances)), features)
 plt.xlabel("Feature Importance")
-plt.title("Random Forest - Drug Feature Importances")
+plt.title("Random Forest - Iris Feature Importances")
 plt.tight_layout()
 plt.show()
 

@@ -44,6 +44,7 @@ cleanData = cleanData.replace('CL4',4)
 cleanData = cleanData.replace('CL5',5)
 cleanData = cleanData.replace('CL6',6)
 print(cleanData)
+
 #End cleanData
 print("break")
 y3 = drug_consumption_quantified.data.targets
@@ -51,5 +52,3 @@ print(y3)
 
 X3 = drug_consumption_quantified.data.features
 print(X3)
-test = range(0,13)
-print(test)
