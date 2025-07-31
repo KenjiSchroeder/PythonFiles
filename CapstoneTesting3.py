@@ -49,51 +49,28 @@ print(type(drug_consumption_quantified.data ))
 
 cleanData = pd.DataFrame(cleanData)
 
-'''encoders = {}
+'''
+encoders = {}
 for col in df.columns:
    le = LabelEncoder()
    df[col] = le.fit_transform(df[col])
-   encoders[col] = le'''
-
-X3 = cleanData.iloc[:,[0,1,2,3,4,5,6,7,8,9,10,11,12]]
-y3 = cleanData.iloc[:,23]
-print("break0")
-print(y3)
-y3 = y3.squeeze() #this is just to make the y values into a one-dimensional list.
-print("break")
-print(y3)
-print("aljrhfb asdjlfh askdjcfnzlduih valur")
-print(type(y3))
-print(type(X3))
-X3_train, X3_test, y3_train, y3_test = train_test_split(X3, y3, test_size=0.2, random_state=1)
-print("break2")
-print(X3)
-print(y3)
-print("break3")
-y3test = drug_consumption_quantified.data.targets
-print(y3test)
-X3test = drug_consumption_quantified.data.features
-print(X3test)
-clf = DecisionTreeClassifier(criterion='entropy', random_state=1,)
-print(X3_train)
-print(y3_train)
-clf.fit(X3_train, y3_train)
-y3_pred = clf.predict(X3_test)
-print("Accuracy:", accuracy_score(y3_test, y3_pred))
-plt.figure(figsize=(12, 8))
-plot_tree(
-clf,
-feature_names=drug_consumption_quantified.feature_names,
-class_names=drug_consumption_quantified.target_names,
-filled=True
-)
-#plt.show()
-#plt.savefig("MaxDepth.png")
-for i in range(1,10):
-    clf = DecisionTreeClassifier(criterion='entropy', random_state=1, max_depth=i)
+   encoders[col] = le
+'''
+accuracy_lst = []
+rfaccuracy_lst = []
+for i in [13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]:
+    X3 = cleanData.iloc[:,[0,1,3,4,6,7,8,9,10,11,12]]
+    y3 = cleanData.iloc[:,i]
+    y3 = y3.squeeze() #this is just to make the y values into a one-dimensional list.
+    X3_train, X3_test, y3_train, y3_test = train_test_split(X3, y3, test_size=0.2, random_state=1)
+    y3test = drug_consumption_quantified.data.targets
+    X3test = drug_consumption_quantified.data.features
+    clf = DecisionTreeClassifier(criterion='entropy', random_state=1,)
     clf.fit(X3_train, y3_train)
     y3_pred = clf.predict(X3_test)
     print("Accuracy:", accuracy_score(y3_test, y3_pred))
+    accuracy_lst.append(accuracy_score(y3_test, y3_pred))
+    '''
     plt.figure(figsize=(12, 8))
     plot_tree(
     clf,
@@ -102,34 +79,54 @@ for i in range(1,10):
     filled=True
     )
     #plt.show()
-    #plt.savefig("MaxDepth"+str(i)+".png")
+    #plt.savefig("MaxDepth.png")
+    
+    for i in range(1,10):
+        clf = DecisionTreeClassifier(criterion='entropy', random_state=1, max_depth=i)
+        clf.fit(X3_train, y3_train)
+        y3_pred = clf.predict(X3_test)
+        print("Accuracy:", accuracy_score(y3_test, y3_pred))
+        plt.figure(figsize=(12, 8))
+        plot_tree(
+        clf,
+        feature_names=drug_consumption_quantified.feature_names,
+        class_names=drug_consumption_quantified.target_names,
+        filled=True
+        )
+        #plt.show()
+        #plt.savefig("MaxDepth"+str(i)+".png")
+        '''
 
 
 
 
-clf = RandomForestClassifier(n_estimators=100, random_state=1)
-clf.fit(X3_train, y3_train)
+    clf = RandomForestClassifier(n_estimators=100, random_state=1)
+    clf.fit(X3_train, y3_train)
 
 
 
 
-y3_pred = clf.predict(X3_test)
-print("RF Accuracy:", accuracy_score(y3_test, y3_pred))
+    y3_pred = clf.predict(X3_test)
+    print("RF Accuracy:", accuracy_score(y3_test, y3_pred))
+    rfaccuracy_lst.append(accuracy_score(y3_test, y3_pred))
 
-importances = clf.feature_importances_
-features = drug_consumption_quantified.feature_names
+    importances = clf.feature_importances_
+    features = drug_consumption_quantified.feature_names
 
-plt.figure(figsize=(8, 5))
-plt.barh(range(len(importances)), importances, align='center')
-plt.yticks(range(len(importances)), features)
-plt.xlabel("Feature Importance")
-plt.title("Random Forest - Drug Feature Importances")
-plt.tight_layout()
-plt.show()
+    plt.figure(figsize=(8, 5))
+    plt.barh(range(len(importances)), importances, align='center')
+    plt.yticks(range(len(importances)), features)
+    plt.xlabel("Feature Importance")
+    plt.title("Random Forest - Drug Feature Importances" + str(i))
+    plt.tight_layout()
+    plt.show()
+print(accuracy_lst)
+print(np.mean(accuracy_lst))
+print(rfaccuracy_lst)
+print(np.mean(rfaccuracy_lst))
 
 
 
 
 
-
-#C:\Users\ICSSA-student\AppData\Local\Microsoft\WindowsApps\python3.13.exe C:/Users/ICSSA-student/Downloads/PythonFiles/CapstoneTesting3.py
+    #C:\Users\ICSSA-student\AppData\Local\Microsoft\WindowsApps\python3.13.exe C:/Users/ICSSA-student/Downloads/PythonFiles/CapstoneTesting3.py

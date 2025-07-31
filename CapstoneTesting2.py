@@ -9,6 +9,7 @@ from sklearn.model_selection import cross_val_score, train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import classification_report
 
 # fetch dataset 
 drug_consumption_quantified = fetch_ucirepo(id=373) 
@@ -80,14 +81,28 @@ X_clean_scaled = pd.DataFrame(scaler.fit_transform(X_clean), columns=X_clean.col
 # Find the best k using cross-validation
 best_k = 1
 best_score = 0
-for k in range(1, 21):
+k_range = range(1, 21)
+cv_scores = []
+
+for k in k_range:
     knn = KNeighborsClassifier(n_neighbors=k)
     scores = cross_val_score(knn, X_clean_scaled, y_clean, cv=5)
     mean_score = scores.mean()
+    cv_scores.append(mean_score)
     if mean_score > best_score:
         best_score = mean_score
         best_k = k
 print(f"Best k: {best_k} with CV accuracy: {best_score:.4f}")
+
+# Plot k vs. cross-validation accuracy
+plt.figure(figsize=(8, 5))
+plt.plot(k_range, cv_scores, marker='o')
+plt.xlabel('Number of Neighbors (k)')
+plt.ylabel('Cross-Validation Accuracy')
+plt.title('KNN Accuracy for Different k Values')
+plt.xticks(k_range)
+plt.grid(True)
+plt.show()
 
 # Train/test split and KNN with best k
 X_train, X_test, y_train, y_test = train_test_split(X_clean_scaled, y_clean, test_size=0.2, random_state=42)
@@ -102,5 +117,5 @@ scores = cross_val_score(knn, X_clean, y_clean, cv=5)
 print("KNN Cross-Validation Scores:", scores)
 print(f"Mean CV Accuracy: {scores.mean():.4f}")
 
-
+print(classification_report(y_test,y_pred))
 #C:\Users\ICSSA-student\AppData\Local\Microsoft\WindowsApps\python3.13.exe C:/Users/ICSSA-student/Downloads/PythonFiles/CapstoneTesting2.py
