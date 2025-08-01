@@ -139,6 +139,7 @@ print(rfaccuracy_lst)
 print(np.mean(rfaccuracy_lst))
 '''
     #C:\Users\ICSSA-student\AppData\Local\Microsoft\WindowsApps\python3.13.exe C:/Users/ICSSA-student/Downloads/PythonFiles/CapstoneTesting3.py
+    #python3.13.exe ~CapstoneTesting3.py
 
 
 
@@ -153,7 +154,7 @@ for i in [14,15,16,20,21,22,23,24,25,26,27,28,30]:
     class_0_downsampled = class_0.sample(n=len(class_1), random_state=1)
     cleanDataFilter = pd.concat([class_0_downsampled, class_1]).sample(frac=1, random_state=1).reset_index(drop=True)
     #End cleanData 
-    X3 = cleanDataFilter.iloc[:,[0,1,3,4,6,7,8,9,10,11,12]]
+    X3 = cleanDataFilter.iloc[:,[0,1,2,3,4,5,6,7,8,9,10,11,12]]
     y3 = cleanDataFilter.iloc[:,i]
     y3 = y3.squeeze() #this is just to make the y values into a one-dimensional list.
     X3_train, X3_test, y3_train, y3_test = train_test_split(X3, y3, test_size=0.2, random_state=1)
